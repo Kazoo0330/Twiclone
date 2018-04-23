@@ -2,9 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :must_login, only: [:new, :edit, :show]
   def index
-    # @posts = Post.all.order(created_at: :desc)
 	  @posts = Post.page(params[:page]).per(5)
-	  # @posts = Post.paginate(page: params[:page])
    @search = Post.ransack(params[:q])
 
    if params[:q].present?
