@@ -2,14 +2,13 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :must_login, only: [:new, :edit, :show]
   def index
-	  @posts = Post.page(params[:page]).per(5)
-   @search = Post.ransack(params[:q])
+    @posts = Post.page(params[:page]).per(5)
+    @search = Post.ransack(params[:q])
 
-   if params[:q].present?
+    if params[:q].present?
      @search = Post.ransack(params[:q])
      @results = @search.result
     end
-  # elsif params[:q].nill?
 
   end
 
