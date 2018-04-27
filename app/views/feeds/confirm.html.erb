@@ -1,0 +1,12 @@
+<h1>これでOK?</h1>
+ <%= form_with(model: @feed, url: feeds_path, local: true) do |form| %>
+   <%= image_tag(@feed.image.url) %>
+   <%= hidden_field_tag :"cache[image]",@feed.image.cache_name %>
+   <%= form.submit "POST" %>
+<% end %>
+
+<%= form_with(model:@feed, url:new_feed_path, local:true, method:"get") do |form| %>
+  <%= hidden_field_tag :"cache[image]",@feed.image.cache_name %>
+  <%= form.submit "戻る", name: "back" %>
+<% end %>
+

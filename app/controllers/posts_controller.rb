@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :must_login, only: [:new, :edit, :show]
+
   def index
     @posts = Post.page(params[:page]).per(5)
     @search = Post.ransack(params[:q])
@@ -19,15 +20,23 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new
+    if params[:back]
+      @post = Post.new(post_params)
+	else
+	  @post = Post.new
+	end
   end
 
   def edit
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = Post.new
 	@post.user_id = current_user.id 
+
+	@post.image.retrieve_from_cache! params[:cache][:image]
+	@post.save!
+
 
     respond_to do |format|
       if @post.save
@@ -39,6 +48,13 @@ class PostsController < ApplicationController
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def confirm
+    @post = Post.new(post_params)
+	@post.user_id = current_user.id
+
+	render :new if @post.invalid?
   end
 
   def update
@@ -71,7 +87,7 @@ class PostsController < ApplicationController
 
   private
     def post_params
-	  params.require(:post).permit(:content, :user_id, :blog_id)
+	  params.require(:post).permit(:content, :image, :user_id, :blog_id)
 	end
 
     def set_post

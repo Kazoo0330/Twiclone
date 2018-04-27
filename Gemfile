@@ -57,3 +57,7 @@ gem 'bcrypt', '3.1.11'
 gem 'dotenv-rails'
 
 gem 'faker'
+
+gem 'carrierwave'
+
+gem 'mini_magick'

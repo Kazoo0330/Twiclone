@@ -1,10 +1,24 @@
-ActiveRecord::Schema.define(version: 20180419111927) do
+ActiveRecord::Schema.define(version: 20180427060408) do
 
   enable_extension "plpgsql"
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
     t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "feeds", force: :cascade do |t|
+    t.text "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -14,6 +28,7 @@ ActiveRecord::Schema.define(version: 20180419111927) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.text "image"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 

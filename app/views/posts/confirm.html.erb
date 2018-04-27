@@ -1,0 +1,15 @@
+<h4>これでいい？</h4>
+
+<%= form_with(model: @post, url: posts_path, local: true) do |form| %>
+  <%= form.hidden_field :content %> 
+  <%= image_tag(@post.image.url) %>
+  <%= hidden_field_tag :"cache[:image]", @post.image.cache_name %>
+
+  <p>なかみ:<%= @post.content %></p>
+  <%= form.submit "投稿" %> 
+<% end %>
+
+<%= form_with(model:@post, url:new_post_path, local:true, method:"get") do |form| %>
+  <%= hidden_field_tag :"cache[image]",@post.image.cache_name %>
+  <%= form.submit "もどる", name: "back" %>
+<% end %>
