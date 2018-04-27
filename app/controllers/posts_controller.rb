@@ -32,9 +32,9 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-	@post.user_id = current_user.id 
+	@post.user_id = current_user.id
 
-	@post.image.retrieve_from_cache! params[:cache][:image]
+	@post.image.retrieve_from_cache! params[:cache][":image"] if params[":image"].present?
 	@post.save!
 
 
@@ -77,9 +77,9 @@ class PostsController < ApplicationController
     end
   end
 
-  def ensure_current_user 
+  def ensure_current_user
     @post = Post.find_by(id:params[:id])
-	  if @post.user_id != @current_user.id 
+	  if @post.user_id != @current_user.id
 	    flash[:notice] = 'ちがうだろ？'
 		reidrect_to("/posts/index")
 	  end
@@ -87,7 +87,7 @@ class PostsController < ApplicationController
 
   private
     def post_params
-	  params.require(:post).permit(:content, :image, :user_id, :blog_id)
+	  params.require(:post).permit(:content, :image, :image_cache, :user_id, :blog_id)
 	end
 
     def set_post
