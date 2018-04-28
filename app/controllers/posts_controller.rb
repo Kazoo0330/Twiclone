@@ -33,8 +33,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
 	@post.user_id = current_user.id
-
-	@post.image.retrieve_from_cache! params[:cache][":image"] if params[":image"].present?
+	@post.image.retrieve_from_cache! params[:cache][:image] if params[:cache][:image].present?
 	@post.save!
 
 

@@ -15,7 +15,7 @@
             <table class="lists">
                 <tr><%= post.content %></tr>
                 <td><button type="button" class="btn btn-info"><%= link_to 'くわしく', post %></button></td>
-			    <% if post.user_id == current_user.id %>
+			    <% if post.user_id == current_user.try(:id) %>
 				  <td><button type="button" class="btn btn-warning"><%= link_to 'かきかえ', edit_post_path(post) %></button></td>
                   <td><button type="button" class="btn btn-danger"><%= link_to 'けす', post, method: :delete, data: { confirm: 'マジかよ...？' } %></button></td>
 				<% end %>

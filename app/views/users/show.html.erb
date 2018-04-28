@@ -1,5 +1,12 @@
 <h1><%= @user.name %>のページ</h1>
 
+<div>
+  <p>
+    <strong>プロフィール画像：</strong>
+    <%= image_tag @user.image %>
+  </p>
+</div>
+
 <P>メールアドレス：<%= @user.email %></P>
 
 <h2><%= @user.name %>のお気に入りたち<h2>

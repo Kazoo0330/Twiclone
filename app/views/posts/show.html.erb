@@ -6,11 +6,11 @@
 </p>
 
 <p>
-  <strong>画像</strong>
+  <strong>画像：</strong>
   <%= image_tag @post.image %>
 </p>
 
-<% unless @post.user == current_user %> 
+<% unless @post.user == current_user %>
   <% if @favorite.present? %>
     <%= link_to '気に入らない', favorite_path(post_id: @post.id), method: :delete, class: 'btn btn-danger' %>
   <% else %>
